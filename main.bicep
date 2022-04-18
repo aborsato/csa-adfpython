@@ -1,4 +1,4 @@
-@description('The location of the Managed Cluster resource.')
+@description('The resource location is taken from the Resource Group.')
 param location string = resourceGroup().location
 
 @secure()
