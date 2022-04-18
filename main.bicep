@@ -4,11 +4,13 @@ param location string = resourceGroup().location
 @secure()
 param storageConnectionString string
 
+// Azure Data Factory resource definition
 resource df 'Microsoft.DataFactory/factories@2018-06-01' = {
   name: 'a9odevopsadf01'
   location: location
 }
 
+// Linked Service for Azure Storage Account
 resource ls_azure_storage 'Microsoft.DataFactory/factories/linkedservices@2018-06-01' = {
   name: 'storageLinkedService001'
   parent: df
@@ -20,6 +22,7 @@ resource ls_azure_storage 'Microsoft.DataFactory/factories/linkedservices@2018-0
   }
 }
 
+// Input Dataset
 resource ds_azure_blob 'Microsoft.DataFactory/factories/datasets@2018-06-01' = {
   name: 'ds_in'
   parent: df
@@ -37,6 +40,7 @@ resource ds_azure_blob 'Microsoft.DataFactory/factories/datasets@2018-06-01' = {
   }
 }
 
+// Output Dataset
 resource dsout_azure_blob 'Microsoft.DataFactory/factories/datasets@2018-06-01' = {
   name: 'ds_out'
   parent: df
@@ -53,6 +57,7 @@ resource dsout_azure_blob 'Microsoft.DataFactory/factories/datasets@2018-06-01' 
   }
 }
 
+// Pipeline definition with 1 copy activity
 resource p 'Microsoft.DataFactory/factories/pipelines@2018-06-01' = {
   name: 'copyPipeline'
   parent: df
